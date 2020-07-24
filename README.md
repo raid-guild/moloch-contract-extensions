@@ -1,5 +1,7 @@
 # Moloch Contract Extensions
 
+Any crazy ideas. these are not audited or even tested.
+
 ## Minions
 
 Minions runs arbitrary contract code after being approved by a dao proposal
