@@ -33,3 +33,35 @@ file: vaults/Transvolution.sol
 description: 
 
 contributors: 
+
+### Transmigration
+
+file: TBD
+
+description: 
+
+contributors: 
+
+## Daedalus
+
+file: TBD
+
+description: 
+
+contributors: 
+
+## Metempsychosis
+
+file: TBD
+
+description: Bone them young so they metempsychosis. That we live after death. Our souls. That a man’s soul after he dies. Dignam’s soul...
+
+contributors: 
+
+# Minator
+
+file: TBD
+
+description: 
+
+contributors: 
