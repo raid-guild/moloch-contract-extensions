@@ -2,7 +2,7 @@ pragma solidity 0.5.11;
 
 import "./moloch/Moloch.sol";
 
-contract Deadalus {
+contract Minion {
 
     // --- Constants ---
     string public constant MINION_ACTION_DETAILS = '{"isMinion": true, "title":"MINION", "description":"';
@@ -49,7 +49,7 @@ contract Deadalus {
     
     function doParentWithdraw(address _token, uint256 _amount) public {
         parentMoloch.withdrawBalance(_token, _amount);
-        require(IERC20(_token).transferFrom(address(this), address(parentMoloch), _amount), "Minion::transfer to dao failed"); 
+        require(IERC20(_token).transferFrom(address(this), address(moloch), _amount), "Minion::transfer to dao failed"); 
     }
 
     function proposeAction(

@@ -44,11 +44,11 @@ contributors:
 
 ## Daedalus
 
-file: TBD
+file: Minion type contract setup as a sub dao of a parent dao
 
-description: 
+description: Takes and extra an extra argument in the contractor to set parent dao and exposes a function to do withdraws from it. This is mainly a UX thing so withdraws do not require another proposal and go directly to the dao bank.
 
-contributors: 
+contributors: @dekanbro
 
 ## Metempsychosis
 
