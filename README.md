@@ -16,9 +16,17 @@ contributors: @wolflo @dekanbro
 
 ### Daedalus
 
-file: Minion type contract setup as a sub dao of a parent dao
+file: minion/Daedalus.sol 
 
-description: Takes and extra an extra argument in the contractor to set parent dao and exposes a function to do withdraws from it. This is mainly a UX thing so withdraws do not require another proposal and go directly to the dao bank.
+description: Minion type contract setup as a sub dao of a parent dao. Takes and extra an extra argument in the contractor to set parent dao and exposes a function to do withdraws from it. This is mainly a UX thing so withdraws do not require another proposal and go directly to the dao bank.
+
+contributors: @dekanbro
+
+### Icarus
+
+file: minion/Icarus.sol 
+
+description: Minion type contract setup to execute early when some quorum of yes votes is met.
 
 contributors: @dekanbro
 

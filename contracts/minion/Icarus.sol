@@ -2,16 +2,19 @@ pragma solidity 0.5.11;
 
 import "./moloch/Moloch.sol";
 
-contract Daedalus {
-
+contract Icarus {
+    using SafeMath for uint256;
     // --- Constants ---
-    string public constant MINION_ACTION_DETAILS = '{"isMinion": true, "kind": "daedalus", "title":"MINION", "description":"';
+    string
+        public constant MINION_ACTION_DETAILS = '{"isMinion": true, "kind": "Icarus", "title":"MINION", "description":"';
+    uint256 public constant QUORUM = 20;
+    uint256 public constant PADDING = 100;
 
     // --- State and data structures ---
     Moloch public moloch;
     Moloch public parentMoloch;
     address public molochApprovedToken;
-    mapping (uint256 => Action) public actions; // proposalId => Action
+    mapping(uint256 => Action) public actions; // proposalId => Action
 
     struct Action {
         uint256 value;
@@ -46,10 +49,17 @@ contract Daedalus {
     function doWithdraw(address _token, uint256 _amount) public {
         moloch.withdrawBalance(_token, _amount);
     }
-    
+
     function doParentWithdraw(address _token, uint256 _amount) public {
         parentMoloch.withdrawBalance(_token, _amount);
-        require(IERC20(_token).transferFrom(address(this), address(moloch), _amount), "Minion::transfer to dao failed"); 
+        require(
+            IERC20(_token).transferFrom(
+                address(this),
+                address(moloch),
+                _amount
+            ),
+            "Minion::transfer to dao failed"
+        );
     }
 
     function proposeAction(
@@ -57,11 +67,7 @@ contract Daedalus {
         uint256 _actionValue,
         bytes calldata _actionData,
         string calldata _description
-    )
-        external
-        memberOnly
-        returns (uint256)
-    {
+    ) external memberOnly returns (uint256) {
         // can't call arbitrary functions on parent moloch, and no calls to
         // zero address allows us to check that Minion submitted
         // the proposal without getting the proposal struct from the moloch
@@ -70,7 +76,9 @@ contract Daedalus {
             "Minion::invalid _actionTo"
         );
 
-        string memory details = string(abi.encodePacked(MINION_ACTION_DETAILS, _description, '"}'));
+        string memory details = string(
+            abi.encodePacked(MINION_ACTION_DETAILS, _description, '"}')
+        );
 
         uint256 proposalId = moloch.submitProposal(
             address(this),
@@ -105,19 +113,28 @@ contract Daedalus {
         moloch.cancelProposal(_proposalId);
     }
 
-    function executeAction(uint256 _proposalId) external returns (bytes memory) {
+    function executeAction(uint256 _proposalId)
+        external
+        returns (bytes memory)
+    {
         Action memory action = actions[_proposalId];
-        bool[6] memory flags = moloch.getProposalFlags(_proposalId);
+        bool isPassed = hasQuorum(_proposalId);
 
         // minion did not submit this proposal
         require(action.to != address(0), "Minion::invalid _proposalId");
         require(!action.executed, "Minion::action executed");
-        require(address(this).balance >= action.value, "Minion::insufficient eth");
-        require(flags[2], "Minion::proposal not passed");
+        require(
+            address(this).balance >= action.value,
+            "Minion::insufficient eth"
+        );
+
+        require(isPassed, "Minion::proposal quorum not met");
 
         // execute call
         actions[_proposalId].executed = true;
-        (bool success, bytes memory retData) = action.to.call.value(action.value)(action.data);
+        (bool success, bytes memory retData) = action.to.call.value(
+            action.value
+        )(action.data);
         require(success, "Minion::call failure");
         emit ActionExecuted(_proposalId, msg.sender);
         return retData;
@@ -125,7 +142,21 @@ contract Daedalus {
 
     // --- View functions ---
     function isMember(address usr) public view returns (bool) {
-        (, uint shares,,,,) = moloch.members(usr);
+        (, uint256 shares, , , , ) = moloch.members(usr);
         return shares > 0;
+    }
+
+    function hasQuorum(uint256 _proposalId) public view returns (bool) {
+        // something like this to check is some quorum is met
+        // if met execution can proceed before proposal is processed
+        uint256 yesVotes;
+        uint256 noVotes;
+        uint256 totalShares = moloch.totalShares();
+
+        (, , , , , , , , , , yesVotes, noVotes, , ) = moloch.proposals(_proposalId);
+
+        uint256 quorum = yesVotes.mul(PADDING).div(totalShares);
+
+        return quorum > QUORUM && yesVotes > noVotes;
     }
 }
