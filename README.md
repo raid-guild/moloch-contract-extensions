@@ -74,9 +74,9 @@ contributors:
 
 ### Whalestoe
 
-file: TBD
+file: other/Whalestoe.sol
 
-description: Thoughts scatter at a monent's notice like birds startled by a shot
+description: a readonly token wrapper around moloch shares. This allows Metamask or other wallets looking for balanceOf to see the shares.
 
 contributors: 
 
@@ -84,6 +84,6 @@ contributors:
 
 file: TBD
 
-description: 
+description: Thoughts scatter at a monent's notice like birds startled by a shot
 
 contributors: 
