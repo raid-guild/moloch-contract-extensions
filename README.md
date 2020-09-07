@@ -60,13 +60,27 @@ contributors:
 
 ## Metempsychosis
 
-file: TBD
+Other totally random stuff
 
-description: Bone them young so they metempsychosis. That we live after death. Our souls. That a man’s soul after he dies. Dignam’s soul...
+Bone them young so they metempsychosis. That we live after death. Our souls. That a man’s soul after he dies. Dignam’s soul...
+
+### Navidson
+
+file: other/Navidson.sol
+
+description: An airdrop type contract for moloch members. Based on the lexdao dripdrop contract, modified so moloch handles membership.
 
 contributors: 
 
-# Minator
+### Whalestoe
+
+file: TBD
+
+description: Thoughts scatter at a monent's notice like birds startled by a shot
+
+contributors: 
+
+## Minator
 
 file: TBD
 
