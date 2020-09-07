@@ -14,6 +14,14 @@ description: standard minion contract
 
 contributors: @wolflo @dekanbro
 
+### Daedalus
+
+file: Minion type contract setup as a sub dao of a parent dao
+
+description: Takes and extra an extra argument in the contractor to set parent dao and exposes a function to do withdraws from it. This is mainly a UX thing so withdraws do not require another proposal and go directly to the dao bank.
+
+contributors: @dekanbro
+
 ## Vaults
 
 Vaults are proposal helpers that have some token balance that can be offered through tribute
@@ -41,14 +49,6 @@ file: TBD
 description: 
 
 contributors: 
-
-## Daedalus
-
-file: Minion type contract setup as a sub dao of a parent dao
-
-description: Takes and extra an extra argument in the contractor to set parent dao and exposes a function to do withdraws from it. This is mainly a UX thing so withdraws do not require another proposal and go directly to the dao bank.
-
-contributors: @dekanbro
 
 ## Metempsychosis
 
