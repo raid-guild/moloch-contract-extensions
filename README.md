@@ -30,6 +30,14 @@ description: Minion type contract setup to execute early when some quorum of yes
 
 contributors: @dekanbro
 
+### Epimetheus
+
+file: minion/Epimetheus.sol
+
+description: Minion type contract setup with added proposal dispute layer. After a minion proposal passes a dao vote, members have time window to dispute the proposal by deferring to an external arbitration contract chosen from a pre-defined list. 
+
+contributors: @heavychain @dekanbro @burrrata
+
 ## Vaults
 
 Vaults are proposal helpers that have some token balance that can be offered through tribute
